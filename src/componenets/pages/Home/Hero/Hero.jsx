@@ -15,7 +15,7 @@ const Hero = () => {
             >
 
                <p
-                  className='flex items-center justify-center gap-3   text-[#2B2B2B] bg-white rounded-2xl px-4 py-1 md:px-10 font-[Lato] text-sm md:text-xl'
+                  className='flex items-center justify-center gap-3   text-[#2B2B2B] bg-white rounded-2xl px-4 py-1 md:px-10 font-lato text-sm md:text-xl'
                >
                   Best Prompt Generator for Finance
                   <span>

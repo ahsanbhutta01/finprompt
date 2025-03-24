@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 
 @import "tailwindcss";
 
@@ -6,6 +6,8 @@
 @theme{
    --color-primary: #5BB0FF;
    --font-lobster: 'Lobster',  sans-serif;
+   --font-lato: 'Lato',  sans-serif;
+   --font-michroma: 'Michroma',  sans-serif;
 }
 
 html{
