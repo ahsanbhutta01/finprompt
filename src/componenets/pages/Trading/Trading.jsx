@@ -51,8 +51,7 @@ const Trading = () => {
                {
                   messages.length === 0 ? (
                      <>
-                        <Prompt/>
-                        
+                        <Prompt/>                  
                      </>
                   ) : (
                      <div></div>
@@ -60,8 +59,6 @@ const Trading = () => {
                }
 
             </aside>
-
-
          </section>
       </div>
    )

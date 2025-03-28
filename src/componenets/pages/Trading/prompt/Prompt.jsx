@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import star_icon from '../../../../assets/star_group 1.png'
 
 const Prompt = () => {
+   const [input, setInput] = useState({
+      investment: '',
+      risk: '',
+      tradeType: 'future'
+   })
+
+   function handleInvetment(e) {
+      const { name, value } = e.target;
+      setInput((prev) => ({ ...prev, [name]: value }));
+   }
+   function handleSubmit(e){
+      e.preventDefault()
+      const investmentNumber = parseFloat(input.investment) || 0;
+      const riskNumber = parseFloat(input.risk) || 0;
+   }
    return (
       <>
          <div>
@@ -10,6 +25,7 @@ const Prompt = () => {
             </p>
          </div>
          <form
+            onSubmit={handleSubmit}
             className="rounded-2xl border border-white relative top-5 px-5 py-7 md:w-[450px] flex items-start justify-center flex-col gap-3"
          >
 
@@ -18,6 +34,9 @@ const Prompt = () => {
                <input
                   type="number"
                   placeholder='Investment in $... '
+                  name='investment'
+                  value={input.investment}
+                  onChange={handleInvetment}
                   required
                   className='bg-[#505050] text-[#FFFFFF] md:text-xl p-1 rounded-md h-8 w-[60%] outline-none'
                />
@@ -27,6 +46,9 @@ const Prompt = () => {
                <input
                   type="number"
                   placeholder='% Risk...'
+                  name='risk'
+                  value={input.risk}
+                  onChange={handleInvetment}
                   required
                   className='bg-[#505050] text-[#FFFFFF] md:text-xl p-1 rounded-md h-8 md:w-[55%] w-1/2 outline-none'
                />
@@ -37,14 +59,20 @@ const Prompt = () => {
                      <input
                         type="radio"
                         required
-                        name="future"
+                        name="tradeType"
+                        value='future'
+                        onChange={handleInvetment}
+                        checked={input.tradeType === 'future'}
                         id="future" className='accent-blue-500 size-5' />
                      <label htmlFor="future" className='cursor-pointer'>Future</label>
                   </div>
                   <div className='flex items-center gap-2'>
                      <input
                         type="radio"
-                        name="spot"
+                        name="tradeType"
+                        value='spot'
+                        checked={input.tradeType === 'spot'}
+                        onChange={handleInvetment}
                         id="spot" required
                         className='accent-blue-500 size-5'
                      />
