@@ -9,10 +9,11 @@ const Trading = () => {
    const [expand, setExpand] = useState(false)
    const [messages, setMessages] = useState([])
    const [isLoading, setIsLoading] = useState(false)
+   const [setting, setSetting] = useState(false)
 
    return (
       <div className='bg-[#212121]'>
-         <section className='flex h-screen '>
+         <section className='flex h-screen relative'>
 
             <SideBar expand={expand} setExpand={setExpand} />
             <aside
@@ -42,16 +43,37 @@ const Trading = () => {
                   <img src={chat} alt="Chat" className='size-10 cursor-pointer md:hidden' />
                   <div className='hidden md:flex items-center justify-center gap-3'>
                      <p className='text-xl text-white'>Hi, ahsan@gmail</p>
-                     <img src={profile_icon} alt="Profile" className='size-13' />
+                     <img
+                        src={profile_icon}
+                        alt="Profile"
+                        className='size-13 cursor-pointer'
+                        onClick={() => setSetting(!setting)}
+                     />
                   </div>
-
                </div>
+
+               {/* Setting for (md) or above screen */}
+               {
+                  setting && (
+                     <div
+                        className="absolute right-7 top-18 transition-all duration-300 bg-white w-46 text-center rounded-2xl"
+                     >
+                        <p className='text-xl cursor-pointer w-46 hover:bg-gray-200  py-2.5 rounded-t-2xl transition-all duration-300'>
+                           Setting
+                        </p>
+                        <div className='w-46 border-b border-b-[#9A9A9A]'></div>
+                        <button className='text-lg bg-[#645c5c] text-white py-1.5 px-6 text-center rounded-[63px] mt-2 mb-2 cursor-pointer hover:bg-black'>
+                           Logout
+                        </button>
+                     </div>
+                  )
+               }
 
                {/* Right Side */}
                {
                   messages.length === 0 ? (
                      <>
-                        <Prompt/>                  
+                        <Prompt isLoading={isLoading} setIsLoading={setIsLoading} />
                      </>
                   ) : (
                      <div></div>
