@@ -1,15 +1,13 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import user from '../../assets/user.png'
 import email from '../../assets/email.png'
 import lock from '../../assets/lock.png'
 import google from '../../assets/google.png'
 import { useDispatch } from 'react-redux'
-import { setShowLogin } from '../../redux/authSlice'
+import { setShowLogin, setUser } from '../../redux/authSlice'
 import cross from '../../assets/cross.png'
 import { useNavigate } from 'react-router-dom'
-
-
-
+import { useLoginMutation, useSignupMutation } from '../../redux/api'
 
 const Login = () => {
    const [state, setState] = useState("Login");
@@ -20,7 +18,8 @@ const Login = () => {
       password: ''
    });
    const navigate = useNavigate()
-   const formRef = useRef(null);
+   const [signup] = useSignupMutation();
+   const [login] = useLoginMutation();
 
    function handleChange(e) {
       const { name, value } = e.target;
@@ -28,10 +27,31 @@ const Login = () => {
 
    }
 
-   function handleSubmit(e) {
-      e.preventDefault()
-      navigate('/trading')
-      dispatch(setShowLogin(false))
+   async function handleSubmit(e) {
+      e.preventDefault();
+      const { email, password } = formData;
+
+      try {
+         if (state === 'Login') {
+            const response = await login({ email, password }).unwrap();
+            if (response.success) {
+               dispatch(setUser(response.name))
+               navigate('/trading')
+               dispatch(setShowLogin(false))
+            }
+         } else {
+
+            const response = await signup(formData ).unwrap();
+            if (response.success) {
+               dispatch(setUser(response.name))
+               navigate('/trading')
+               dispatch(setShowLogin(false))
+            }
+
+         }
+      } catch (error) {
+
+      }
 
    }
 

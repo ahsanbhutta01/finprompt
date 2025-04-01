@@ -3,7 +3,7 @@ import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 import profile_icon from '../../../../assets/profile_icon 1.png'
 
 
-const SideBar = ({ expand, setExpand }) => {
+const SideBar = ({ expand, setExpand, user }) => {
    const [setting, setSetting] = useState(false)
    return (
       <>
@@ -40,7 +40,7 @@ const SideBar = ({ expand, setExpand }) => {
                   className='size-10'
                   
                />
-               {expand && <span className='text-white'>Username</span>}
+               {expand && <span className='text-white'>Hi, {user}</span>}
             </div>
 
             {/* For mobile screen setting */}

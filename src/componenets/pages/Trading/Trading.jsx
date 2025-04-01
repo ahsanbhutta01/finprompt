@@ -4,18 +4,20 @@ import chat from '../../../assets/chat.png'
 import profile_icon from '../../../assets/profile_icon 1.png'
 import SideBar from './SideBar/SideBar'
 import Prompt from './prompt/Prompt'
+import { useSelector } from 'react-redux'
 
 const Trading = () => {
    const [expand, setExpand] = useState(false)
    const [messages, setMessages] = useState([])
    const [isLoading, setIsLoading] = useState(false)
    const [setting, setSetting] = useState(false)
+   const {user} = useSelector(state=>state.auth)
 
    return (
       <div className='bg-[#212121]'>
          <section className='flex h-screen relative'>
 
-            <SideBar expand={expand} setExpand={setExpand} />
+            <SideBar expand={expand} setExpand={setExpand} user={user}/>
             <aside
                className='bg-[#292a2d] flex flex-1 flex-col items-center justify-center px-4 pb-8 relative'
             >
@@ -42,7 +44,7 @@ const Trading = () => {
                   </div>
                   <img src={chat} alt="Chat" className='size-10 cursor-pointer md:hidden' />
                   <div className='hidden md:flex items-center justify-center gap-3'>
-                     <p className='text-xl text-white'>Hi, ahsan@gmail</p>
+                     <p className='text-xl text-white'>Hi, {user}</p>
                      <img
                         src={profile_icon}
                         alt="Profile"

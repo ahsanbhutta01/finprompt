@@ -3,9 +3,11 @@ import Layout from './componenets/layout/Layout'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import Home from './componenets/pages/Home/Home'
 import Login from './componenets/Auth/Login'
-import {useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ProtectedRoute from './componenets/Auth/ProtectedRoute'
 import Trading from './componenets/pages/Trading/Trading'
+import { useGetCurrentUserQuery } from './redux/api'
+import { setUser } from './redux/authSlice'
 
 
 
@@ -13,9 +15,17 @@ import Trading from './componenets/pages/Trading/Trading'
 const App = () => {
   const { showLogin } = useSelector(state => state.auth)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { data } = useGetCurrentUserQuery()
+
+  useEffect(() => {
+    if (data?.success) {
+      dispatch(setUser(data.name));
+    }
+  }, [data, dispatch]);
   useEffect(() => {
     if (showLogin) {
-        navigate('/')  
+      navigate('/')
     }
   }, [showLogin, navigate])
   return (
