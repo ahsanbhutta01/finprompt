@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 import profile_icon from '../../../../assets/profile_icon 1.png'
+import ChatLabel from '../chatlabel/ChatLabel';
 
 
-const SideBar = ({ expand, setExpand, user }) => {
+const SideBar = ({ expand, setExpand, user, handleLogout }) => {
    const [setting, setSetting] = useState(false)
+   const [openMenu, setOpenMenu] = useState({ id: 0, open: false })
    return (
       <>
          <div className={`flex relative flex-col justify-between bg-[#212327] pt-2 md:pt-7 transition-all z-50 max-md:absolute max-md:h-screen  ${expand ? 'p-4 w-64 md:w-80' : ' w-0 max-md:overflow-hidden'}`}>
@@ -29,8 +31,8 @@ const SideBar = ({ expand, setExpand, user }) => {
                </button>
 
                <div className={`mt-8 text-white text-sm ${expand ? 'block' : 'hidden'}`}>
-                  <p className='text-white text-xl'>Recents</p>
-                  {/* Chat Label */}
+                  <p className='text-white text-xl font-bold'>Recents</p>
+                  <ChatLabel openMenu={openMenu} setOpenMenu={setOpenMenu} />
                </div>
             </div>
             <div className={` md:hidden flex items-center gap-1 ${expand ? 'hover:bg-white/10 rounded-lg' : 'justify-center w-full'} p-1 cursor-pointer`} onClick={() => setSetting(!setting)}>
@@ -38,7 +40,7 @@ const SideBar = ({ expand, setExpand, user }) => {
                   src={profile_icon}
                   alt=""
                   className='size-10'
-                  
+
                />
                {expand && <span className='text-white'>Hi, {user}</span>}
             </div>
@@ -53,7 +55,10 @@ const SideBar = ({ expand, setExpand, user }) => {
                         Setting
                      </p>
                      <div className='w-50 border-b border-b-[#9A9A9A]'></div>
-                     <button className='text-md bg-[#645c5c] text-white py-1.5 px-6 text-center rounded-[63px] mt-2 mb-2 cursor-pointer active:bg-black transition-all duration-500'>
+                     <button
+                        className='text-md bg-[#645c5c] text-white py-1.5 px-6 text-center rounded-[63px] mt-2 mb-2 cursor-pointer active:bg-black transition-all duration-500'
+                        onClick={handleLogout}
+                     >
                         Logout
                      </button>
                   </div>

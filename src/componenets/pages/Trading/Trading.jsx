@@ -4,20 +4,36 @@ import chat from '../../../assets/chat.png'
 import profile_icon from '../../../assets/profile_icon 1.png'
 import SideBar from './SideBar/SideBar'
 import Prompt from './prompt/Prompt'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLogoutMutation } from '../../../redux/api'
+import { logoutUser } from '../../../redux/authSlice'
+
 
 const Trading = () => {
    const [expand, setExpand] = useState(false)
    const [messages, setMessages] = useState([])
    const [isLoading, setIsLoading] = useState(false)
    const [setting, setSetting] = useState(false)
-   const {user} = useSelector(state=>state.auth)
+   const { user } = useSelector(state => state.auth)
+   const [logout] = useLogoutMutation()
+   const dispatch = useDispatch()
+
+   async function handleLogout() {
+      try {
+         const res = await logout().unwrap();
+         console.log("success")
+         dispatch(logoutUser())
+      } catch (error) {
+         console.log(error)
+      }
+   }
 
    return (
       <div className='bg-[#212121]'>
          <section className='flex h-screen relative'>
 
-            <SideBar expand={expand} setExpand={setExpand} user={user}/>
+         <SideBar expand={expand} setExpand={setExpand} user={user} handleLogout={handleLogout} />
+
             <aside
                className='bg-[#292a2d] flex flex-1 flex-col items-center justify-center px-4 pb-8 relative'
             >
@@ -64,7 +80,10 @@ const Trading = () => {
                            Setting
                         </p>
                         <div className='w-46 border-b border-b-[#9A9A9A]'></div>
-                        <button className='text-lg bg-[#645c5c] text-white py-1.5 px-6 text-center rounded-[63px] mt-2 mb-2 cursor-pointer hover:bg-black'>
+                        <button
+                           className='text-lg bg-[#645c5c] text-white py-1.5 px-6 text-center rounded-[63px] mt-2 mb-2 cursor-pointer hover:bg-black'
+                           onClick={handleLogout}
+                        >
                            Logout
                         </button>
                      </div>

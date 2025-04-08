@@ -9,9 +9,6 @@ import Trading from './componenets/pages/Trading/Trading'
 import { useGetCurrentUserQuery } from './redux/api'
 import { setUser } from './redux/authSlice'
 
-
-
-
 const App = () => {
   const { showLogin } = useSelector(state => state.auth)
   const navigate = useNavigate()

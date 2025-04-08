@@ -26,7 +26,14 @@ export const apiSlice = createApi({
       getCurrentUser: builder.query({
          query: () => '/user/current',
       }),
+
+      logout: builder.mutation({
+         query: ()=>({
+            url:'/user/logout',
+            method:'POST'
+         })
+      })
    })
 })
 
-export const { useSignupMutation, useLoginMutation, useGetCurrentUserQuery } = apiSlice;
+export const { useSignupMutation, useLoginMutation, useGetCurrentUserQuery, useLogoutMutation } = apiSlice;
